@@ -8,14 +8,29 @@
   <body>
     <canvas class="whiteboard"></canvas>
 
-    <div class="colors">
-      <div class="color black"></div>
-      <div class="color red"></div>
-      <div class="color green"></div>
-      <div class="color blue"></div>
-      <div class="color yellow"></div>
+    <div class="controls">
+      <div class="colors">
+        <div class="color black"></div>
+        <div class="color red"></div>
+        <div class="color green"></div>
+        <div class="color blue"></div>
+        <div class="color yellow"></div>
+      </div>
+      <div class="brush-size">
+        <label for="size">Brush Size:</label>
+        <input type="range" id="size" min="1" max="50" value="2">
+      </div>
+      <div class="brush-modes">
+        <label for="mode">Brush Mode:</label>
+        <select id="mode">
+          <option value="normal">Normal</option>
+          <option value="spray">Spray</option>
+          <option value="eraser">Eraser</option>
+        </select>
+      </div>
     </div>
+
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/main.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
