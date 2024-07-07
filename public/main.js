@@ -12,8 +12,24 @@
     size: 2,
     mode: "normal",
   };
-  var drawing = false;
 
+  var drawing = false;
+  // Assuming 'socket' is already defined as in your provided code
+  var statusLed = document.getElementById("statusLed");
+
+  socket.on("connect", function () {
+    statusLed.className = "status-led connected";
+  });
+
+  socket.on("disconnect", function () {
+    statusLed.className = "status-led disconnected";
+  });
+  // Assuming 'socket' is already defined as in your provided code
+  socket.on("count", function (data) {
+    document.getElementById(
+      "userCount"
+    ).textContent = `Connected users: ${data}`;
+  });
   canvas.addEventListener("mousedown", onMouseDown, false);
   canvas.addEventListener("mouseup", onMouseUp, false);
   canvas.addEventListener("mouseout", onMouseUp, false);
@@ -128,7 +144,7 @@
           e.clientY || e.touches[0].clientY,
           current.color,
           current.size,
-          true,
+          true
         );
         break;
       case "eraser":
@@ -138,7 +154,7 @@
           e.clientX || e.touches[0].clientX,
           e.clientY || e.touches[0].clientY,
           current.size,
-          true,
+          true
         );
         break;
       default:
@@ -149,7 +165,7 @@
           e.clientY || e.touches[0].clientY,
           current.color,
           current.size,
-          true,
+          true
         );
     }
   }
@@ -165,7 +181,7 @@
           e.clientY || e.touches[0].clientY,
           current.color,
           current.size,
-          true,
+          true
         );
         break;
       case "eraser":
@@ -175,7 +191,7 @@
           e.clientX || e.touches[0].clientX,
           e.clientY || e.touches[0].clientY,
           current.size,
-          true,
+          true
         );
         break;
       default:
@@ -186,7 +202,7 @@
           e.clientY || e.touches[0].clientY,
           current.color,
           current.size,
-          true,
+          true
         );
     }
     current.x = e.clientX || e.touches[0].clientX;
@@ -222,11 +238,14 @@
           data.x1 * w,
           data.y1 * h,
           data.color,
-          data.size,
+          data.size
         );
     }
   }
-
+  // Add a clear button functionality
+  document.getElementById("clear").addEventListener("click", function () {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  });
   function onResize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;

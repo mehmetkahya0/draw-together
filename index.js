@@ -1,16 +1,26 @@
-
-const express = require('express');
+const express = require("express");
 const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const http = require("http").Server(app);
+const io = require("socket.io")(http);
 const port = process.env.PORT || 3000;
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + "/public"));
 
-function onConnection(socket){
-  socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+function onConnection(socket) {
+  socket.on("drawing", (data) => socket.broadcast.emit("drawing", data));
 }
 
-io.on('connection', onConnection);
+io.on("connection", onConnection);
 
-http.listen(port, () => console.log('listening on port ' + port));
+// Assuming you have an existing server setup with socket.io
+io.on("connection", (socket) => {
+  // Emit the count to all clients whenever someone connects
+  io.emit("count", io.engine.clientsCount);
+
+  socket.on("disconnect", () => {
+    // Emit the updated count to all clients whenever someone disconnects
+    io.emit("count", io.engine.clientsCount);
+  });
+});
+
+http.listen(port, () => console.log("listening on port " + port));
