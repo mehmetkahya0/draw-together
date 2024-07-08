@@ -71,6 +71,14 @@ select {
   top: 0;
 }
 
+
+.username {
+  margin: 1rem !important;
+  top: 0;
+  left: 0;
+  background-color: rgb(255, 255, 255);
+}
+
 .controls {
   position: absolute;
   top: 0;
@@ -81,6 +89,7 @@ select {
   padding: 10px;
   background-color: rgb(250, 238, 200);
   border-radius: 5px;
+  margin-top: 3rem;
 }
 
 .colors,

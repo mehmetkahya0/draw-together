@@ -14,16 +14,24 @@ io.on("connection", onConnection);
 
 // Assuming you have an existing server setup with socket.io
 io.on("connection", (socket) => {
+  // Placeholder for username
+  let username = "Unknown User";
+
   // Emit the count to all clients whenever someone connects
   io.emit("count", io.engine.clientsCount);
   console.log("A user connected");
 
+  // Listen for 'register' event to capture the username
+  socket.on("register", (name) => {
+    username = name;
+    console.log(`${username} connected`);
+  });
 
   socket.on("disconnect", () => {
-    console.log("A user disconnected");
+    console.log(`${username} disconnected`);
     // Emit the updated count to all clients whenever someone disconnects
     io.emit("count", io.engine.clientsCount);
-    socket.broadcast.emit('userLeft', 'A user has left the chat');
+    socket.broadcast.emit("userLeft", "A user has left the chat");
   });
 });
 
