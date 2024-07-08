@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,6 +9,8 @@
     <canvas class="whiteboard"></canvas>
 
     <div class="controls">
+      <h2>Draw Together</h2>
+      <h6>for us</h6>
       <div class="colors">
         <div class="color black"></div>
         <div class="color red"></div>
@@ -32,7 +34,10 @@
       </div>
     </div>
     <div class="status-led" id="statusLed"></div>
-    <div id="userCount" class="counter">Connected users: 0</div>
+    <div id="userCount" class="counter">
+      
+      Connected users: 0
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="main.js"></script>
   </body>

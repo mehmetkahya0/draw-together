@@ -16,10 +16,14 @@ io.on("connection", onConnection);
 io.on("connection", (socket) => {
   // Emit the count to all clients whenever someone connects
   io.emit("count", io.engine.clientsCount);
+  console.log("A user connected");
+
 
   socket.on("disconnect", () => {
+    console.log("A user disconnected");
     // Emit the updated count to all clients whenever someone disconnects
     io.emit("count", io.engine.clientsCount);
+    socket.broadcast.emit('userLeft', 'A user has left the chat');
   });
 });
 
