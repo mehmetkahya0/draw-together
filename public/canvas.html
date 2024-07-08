@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Draw Together</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas class="whiteboard"></canvas>
+
+    <div class="controls" id="controlsContainer">
+      <h2>
+        <div class="status-led" id="statusLed"></div>
+        Draw Together
+      </h2>
+      <h6>for us</h6>
+
+      <div class="colors">
+        <div class="color black"></div>
+        <div class="color red"></div>
+        <div class="color green"></div>
+        <div class="color blue"></div>
+        <div class="color yellow"></div>
+      </div>
+      <div class="brush-size">
+        <label for="size">Brush Size:</label>
+        <input type="range" id="size" min="1" max="50" value="2" />
+      </div>
+      <div class="brush-modes">
+        <label for="mode">Brush Mode:</label>
+        <select id="mode">
+          <option value="normal">Normal</option>
+          <option value="spray">Spray</option>
+          <option value="eraser">Eraser</option>
+        </select>
+        <label for="clear">Clear:</label>
+        <button id="clear">Clear</button>
+      </div>
+    </div>
+
+    <div id="userCount" class="counter">Connected users: 0</div>
+    <!-- Write hello, $username -->
+    <div id="username" class="username">
+      Hello, <span id="usernameDisplay"></span>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        const username = params.get("username");
+        document.getElementById("usernameDisplay").textContent =
+          username || "Guest";
+      });
+    </script>
+    <script src="drag.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+    <script src="canvas.js"></script>
+  </body>
+</html>
