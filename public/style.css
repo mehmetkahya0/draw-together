@@ -71,7 +71,6 @@ select {
   top: 0;
 }
 
-
 .username {
   margin: 1rem !important;
   top: 0;
@@ -84,6 +83,8 @@ select {
   top: 0;
   left: 0;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: baseline;
   margin: 1rem;
   border: 2px solid black;
   padding: 10px;

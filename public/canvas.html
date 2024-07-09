@@ -39,25 +39,18 @@
     </div>
 
     <div id="userCount" class="counter">Connected users: 0</div>
+
     <!-- Write hello, $username -->
     <div id="username" class="username">
       Hello, <span id="usernameDisplay"></span>
     </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const params = new URLSearchParams(window.location.search);
-        const username = params.get("username");
-        document.getElementById("usernameDisplay").textContent = username || "Guest";
-    
-        const socket = io(); // Assuming you've already established a connection
-    
-        // Emit 'register' event with username
-        socket.emit("register", username);
-      });
-    </script>
+
+    <!-- Online Users List -->
+    <div id="onlineUsers" class="online-users">Online Users: </div>
+
     <script src="drag.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="main.js"></script>
-    <script src="canvas.js"></script>
+    <script src="onlineUsers.js"></script>
   </body>
 </html>
