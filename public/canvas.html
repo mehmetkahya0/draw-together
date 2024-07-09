@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -44,13 +44,21 @@
     <div id="username" class="username">
       Hello, <span id="usernameDisplay"></span>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        const username = params.get("username");
+        document.getElementById("usernameDisplay").textContent = username || "Guest";
 
-    <!-- Online Users List -->
-    <div id="onlineUsers" class="online-users">Online Users: </div>
+        const socket = io(); // Assuming you've already established a connection
 
+        // Emit 'register' event with username
+        socket.emit("register", username);
+      });
+    </script>
     <script src="drag.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="main.js"></script>
-    <script src="onlineUsers.js"></script>
+    <script sr="username.js"></script>
   </body>
 </html>

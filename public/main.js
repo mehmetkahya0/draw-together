@@ -34,6 +34,11 @@
   socket.on("userLeft", function (message) {
     alert(message);
   });
+
+
+  
+
+
   canvas.addEventListener("mousedown", onMouseDown, false);
   canvas.addEventListener("mouseup", onMouseUp, false);
   canvas.addEventListener("mouseout", onMouseUp, false);

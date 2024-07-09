@@ -31,7 +31,7 @@ io.on("connection", (socket) => {
     console.log(`${username} disconnected`);
     // Emit the updated count to all clients whenever someone disconnects
     io.emit("count", io.engine.clientsCount);
-    socket.broadcast.emit("userLeft", "A user has left the chat");
+    socket.broadcast.emit("userLeft", `${username} has left the chat`);
   });
 });
 
