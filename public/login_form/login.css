@@ -4,11 +4,35 @@ body,
 html {
   height: 100%;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background-color: rgb(250, 238, 200);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  font-weight: bolder;
+  margin: 1rem 0 0;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #000000;
+}
+
+h6 {
+  margin: 0;
+  margin-bottom: 20px;
+  color: #000000;
+  opacity: 0.5;
 }
 
 .username-page {
@@ -16,9 +40,8 @@ html {
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;   
-    max-width: 400px;
-
+  width: 100%;
+  max-width: 800px;
 }
 
 #usernameForm {
@@ -42,13 +65,32 @@ html {
 #usernameForm button {
   cursor: pointer;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #000000;
   color: white;
   border: none;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+  font-weight: bolder;
 }
 
 #usernameForm button:hover {
   background-color: #0056b3;
+}
+
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  font-weight: bolder;
+  font-size: small;
+  margin: 1rem 0 0;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  opacity: 0.5;
 }
