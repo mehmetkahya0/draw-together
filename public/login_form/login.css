@@ -106,3 +106,41 @@ footer {
   text-align: center;
   opacity: 0.5;
 }
+
+/* Optimize for mobil devices */
+@media (max-width: 600px) {
+  .username-page {
+    padding: 20px;
+  }
+
+  #usernameForm input[type="text"] {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  #usernameForm button {
+    padding: 10px 20px;
+  }
+
+  header {
+    font-size: 0.75rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .betaBagde {
+    padding: 5px 10px;
+    font-size: smaller !important;
+    position: fixed !important;
+  }
+
+  footer {
+    font-size: smaller;
+    width: 100%;
+    right: 0;
+    display: flex !important;
+    position: fixed !important;
+  }
+}

@@ -10,15 +10,18 @@ function onConnection(socket) {
   socket.on("drawing", (data) => socket.broadcast.emit("drawing", data));
 }
 
-io.on("connection", onConnection);
+// Initialize a function to emit the current count of connected clients
+function emitClientCount() {
+  // Emit the count to all clients
+  io.emit("count", Object.keys(io.sockets.sockets).length);
+}
 
-// Assuming you have an existing server setup with socket.io
 io.on("connection", (socket) => {
   // Placeholder for username
   let username = "Unknown User";
 
   // Emit the count to all clients whenever someone connects
-  io.emit("count", io.engine.clientsCount);
+  emitClientCount();
   console.log("A user connected");
 
   // Listen for 'register' event to capture the username
@@ -30,9 +33,9 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log(`${username} disconnected`);
     // Emit the updated count to all clients whenever someone disconnects
-    io.emit("count", io.engine.clientsCount);
+    emitClientCount();
     socket.broadcast.emit("userLeft", `${username} has left the chat`);
   });
 });
 
-http.listen(port, () => console.log("listening on port " + port));
+http.listen(port, () => console.log(`listening on port ${port}`));

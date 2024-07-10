@@ -177,3 +177,53 @@ select {
     background-color: darkred;
   }
 }
+
+.betaBagde {
+  bottom: 0;
+  right: 0;
+  display: flex;
+  position: absolute;
+  background-color: rgb(0, 0, 0);
+  padding: 0 20px;
+  margin: 0;
+  border-radius: 5px 0 0 0;
+  color: aliceblue;
+  font-size: small;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Optimize for mobil devices */
+@media (max-width: 768px) {
+  * {
+    font-size: smaller;
+  }
+
+  .controls {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+    margin-top: 3rem;
+  }
+
+  .color {
+    height: 30px;
+    width: 30px;
+  }
+
+  .counter {
+    padding: 5px 10px;
+  }
+
+  .betaBagde {
+    padding: 0 5px;
+    font-size: 10px;
+  }
+
+  .status-led {
+    width: 15px;
+    height: 15px;
+  }
+}
