@@ -30,6 +30,10 @@ io.on("connection", (socket) => {
     console.log(`${username} connected`);
   });
 
+  socket.on("clear", () => {
+    // Broadcast the clear event to all clients
+    io.emit("clear");
+  });
   socket.on("disconnect", () => {
     console.log(`${username} disconnected`);
     // Emit the updated count to all clients whenever someone disconnects

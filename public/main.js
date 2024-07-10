@@ -253,8 +253,13 @@
         );
     }
   }
-  // Add a clear button functionality
+  // Emit a 'clear' event to the server when the clear button is clicked
   document.getElementById("clear").addEventListener("click", function () {
+    socket.emit("clear");
+  });
+
+  // Listen for a 'clear' event from the server to clear the canvas
+  socket.on("clear", function () {
     context.clearRect(0, 0, canvas.width, canvas.height);
   });
   function onResize() {
