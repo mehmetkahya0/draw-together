@@ -256,6 +256,7 @@
   // Emit a 'clear' event to the server when the clear button is clicked
   document.getElementById("clear").addEventListener("click", function () {
     socket.emit("clear");
+    alert("Cleared canvas");
   });
 
   // Listen for a 'clear' event from the server to clear the canvas

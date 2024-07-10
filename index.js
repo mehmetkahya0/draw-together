@@ -34,7 +34,6 @@ io.on("connection", (socket) => {
     // Broadcast the clear event to all clients
     io.emit("clear");
     console.log("Clearing canvas");
-    alert("Cleared canvas");
   });
   socket.on("disconnect", () => {
     console.log(`${username} disconnected`);
