@@ -4,6 +4,17 @@ let isDragging = false;
 let dragStartX, dragStartY;
 
 const dragStart = (e) => {
+  let target = e.target;
+
+  // Check if the target or any of its parents is a button
+  while (target != null && target !== controlsContainer) {
+    if (target.nodeName === "BUTTON" || target.type === "button") {
+      // If a button was clicked, do not initiate dragging
+      return;
+    }
+    target = target.parentNode;
+  }
+
   isDragging = true;
   const clientX = e.touches ? e.touches[0].clientX : e.clientX;
   const clientY = e.touches ? e.touches[0].clientY : e.clientY;

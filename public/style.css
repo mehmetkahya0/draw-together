@@ -101,6 +101,19 @@ select {
   margin-top: 3rem;
 }
 
+.header{
+  font-family: "Playwrite HU", cursive;
+}
+
+
+.header h2{
+  font-weight: bolder;
+}
+
+.header h6{
+  font-weight: bolder;
+}
+
 .colors,
 .brush-size,
 .brush-modes {

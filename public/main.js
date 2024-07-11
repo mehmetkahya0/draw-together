@@ -32,9 +32,11 @@
       data = data;
     }
 
+    console.log(data);
     document.getElementById(
       "userCount"
     ).textContent = `Connected users: ${data}`;
+
   });
 
   socket.on("userLeft", function (message) {

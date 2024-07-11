@@ -12,6 +12,7 @@ html {
 }
 
 header {
+  font-family: "Playwrite HU", cursive;
   position: fixed;
   top: 0;
   left: 0;

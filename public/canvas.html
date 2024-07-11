@@ -1,19 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Draw Together</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+HU:wght@100..400&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <canvas class="whiteboard"></canvas>
 
     <div class="controls" id="controlsContainer">
-      <h2>
-        <div class="status-led" id="statusLed"></div>
-        Draw Together
-      </h2>
-      <h6>for us</h6>
+      <div class="header">
+        <h2>
+          <div class="status-led" id="statusLed"></div>
+          Draw Together
+        </h2>
+        <h6>for us</h6>
+      </div>
 
       <div class="colors">
         <div class="color black"></div>
@@ -48,12 +56,13 @@
     <div class="betaBagde">
       <p>🚧 Beta V0.1 pre-alpha 🚧</p>
     </div>
-    
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const params = new URLSearchParams(window.location.search);
         const username = params.get("username");
-        document.getElementById("usernameDisplay").textContent = username || "Guest";
+        document.getElementById("usernameDisplay").textContent =
+          username || "Guest";
 
         const socket = io(); // Assuming you've already established a connection
 
