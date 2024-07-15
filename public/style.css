@@ -40,9 +40,11 @@ h2 {
   padding-top: 5px;
   display: flex;
   align-items: center;
+  font-weight: bolder !important;
 }
 
 h6 {
+  font-weight: bolder !important;
   margin: 0;
   margin-bottom: 5px;
   padding-left: 5px;
@@ -148,6 +150,7 @@ select {
 .brush-size label,
 .brush-modes label {
   margin-right: 5px;
+  font-size: medium !important;;
 }
 
 .counter {
