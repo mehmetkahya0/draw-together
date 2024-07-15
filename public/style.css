@@ -28,8 +28,6 @@ body {
   user-select: none; /* Standard syntax */
 }
 
-
-
 canvas {
   display: block;
 }
@@ -103,16 +101,15 @@ select {
   margin-top: 3rem;
 }
 
-.header{
+.header {
   font-family: "Playwrite HU", cursive;
 }
 
-
-.header h2{
+.header h2 {
   font-weight: bolder;
 }
 
-.header h6{
+.header h6 {
   font-weight: bolder;
 }
 
@@ -150,7 +147,7 @@ select {
 .brush-size label,
 .brush-modes label {
   margin-right: 5px;
-  font-size: medium !important;;
+  font-size: medium !important;
 }
 
 .counter {
@@ -224,12 +221,21 @@ select {
     font-size: smaller;
   }
 
+  h2 {
+    font-size: 1rem !important;
+  }
+
+  h6 {
+    font-size: smaller;
+  }
+
   .controls {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin: 1rem;
     margin-top: 3rem;
+    font-size: small !important;
   }
 
   .color {
@@ -249,5 +255,11 @@ select {
   .status-led {
     width: 15px;
     height: 15px;
+  }
+
+  .brush-size label,
+  .brush-modes label {
+    margin-right: 5px;
+    font-size: small !important;
   }
 }
