@@ -79,13 +79,6 @@ select {
   top: 0;
 }
 
-.username {
-  margin: 1rem !important;
-  top: 0;
-  left: 0;
-  background-color: rgb(255, 255, 255);
-}
-
 .controls {
   position: absolute;
   top: 0;
@@ -98,7 +91,7 @@ select {
   padding: 10px;
   background-color: rgb(250, 238, 200);
   border-radius: 5px;
-  margin-top: 3rem;
+  margin-top: 4rem;
 }
 
 .header {
@@ -111,6 +104,39 @@ select {
 
 .header h6 {
   font-weight: bolder;
+}
+
+header {
+  font-family: "Poppins", sans-serif;
+  width: 100% !important;
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
+  margin: 1rem 0 0;
+  justify-content: center;
+  background-color: rgb(250, 238, 200);
+}
+
+.username {
+  color: rgb(0, 0, 0);
+  padding: 1rem !important;
+}
+
+.betaBagde {
+  right: 0;
+  top: 0;
+  position: absolute;
+  padding: 0 10px;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  margin: 1rem;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border-radius: 5px;
+  margin-top: 1.5rem;
+  box-shadow: 0 0px 10px rgb(238, 194, 50);
 }
 
 .colors,
@@ -199,26 +225,21 @@ select {
   }
 }
 
-.betaBagde {
-  bottom: 0;
-  right: 0;
-  display: flex;
-  position: absolute;
-  background-color: rgb(0, 0, 0);
-  padding: 0 20px;
-  margin: 0;
-  border-radius: 5px 0 0 0;
-  color: aliceblue;
-  font-size: small;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
 /* Optimize for mobil devices */
 @media (max-width: 768px) {
   * {
     font-size: smaller;
+  }
+
+  header {
+    font-size: smaller;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 2rem !important;
+  }
+
+  .username {
+    font-size: medium;
   }
 
   h2 {
