@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Draw Together — Infinite Canvas</title>
+  <meta name="description" content="Collaborative infinite canvas where anyone can draw together in real-time. No sign up, no server — just share your Room ID." />
+  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>" />
+</head>
+<body>
+
+  <!-- ═══════════ LOBBY SCREEN ═══════════ -->
+  <div class="lobby-screen" id="lobbyScreen">
+    <div class="lobby-bg"></div>
+    <div class="lobby-card">
+      <div class="lobby-logo">
+        <h1>Draw Together</h1>
+        <p>Infinite canvas • Real-time collaboration</p>
+      </div>
+
+      <div class="lobby-input-group">
+        <label for="lobbyUsername">Your Name</label>
+        <input type="text" id="lobbyUsername" class="lobby-input" placeholder="Enter your name..." maxlength="20" autocomplete="off" />
+      </div>
+
+      <div class="lobby-actions">
+        <button class="btn btn-primary" id="createRoomBtn">✦ Create Room</button>
+      </div>
+
+      <div class="lobby-divider">
+        <span>or join existing</span>
+      </div>
+
+      <div class="lobby-input-group">
+        <label for="lobbyRoomId">Room ID</label>
+        <input type="text" id="lobbyRoomId" class="lobby-input" placeholder="e.g. AB3XY" maxlength="10" autocomplete="off" style="text-transform: uppercase; letter-spacing: 2px; font-family: 'SF Mono', 'Fira Code', monospace;" />
+      </div>
+
+      <div class="lobby-actions">
+        <button class="btn btn-secondary" id="joinRoomBtn">→ Join Room</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MAIN CANVAS ═══════════ -->
+  <canvas id="mainCanvas"></canvas>
+
+  <!-- ═══════════ TOP BAR ═══════════ -->
+  <div class="top-bar">
+    <div class="room-id-display" title="Click to copy Room ID">
+      <span>🔗</span>
+      <span>Room:</span>
+      <span class="room-code">—</span>
+    </div>
+    <div class="peer-count">
+      <div class="peer-dot"></div>
+      <span class="peer-count-text">1 online</span>
+    </div>
+  </div>
+
+  <!-- ═══════════ TOOLBAR ═══════════ -->
+  <div class="toolbar">
+    <!-- Pen -->
+    <button class="toolbar-btn active" data-tool="pen" title="Pen (P)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
+    </button>
+
+    <!-- Eraser -->
+    <button class="toolbar-btn" data-tool="eraser" title="Eraser (E)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 20H7L3 16c-.8-.8-.8-2 0-2.8L14.8 1.4c.8-.8 2-.8 2.8 0l5 5c.8.8.8 2 0 2.8L11 20"/>
+      </svg>
+    </button>
+
+    <div class="toolbar-sep"></div>
+
+    <!-- Color -->
+    <button class="toolbar-btn" data-tool="color" title="Color">
+      <div class="color-indicator" style="width:20px;height:20px;border-radius:50%;background:#ffffff;border:2px solid rgba(255,255,255,0.3);"></div>
+    </button>
+
+    <!-- Size -->
+    <button class="toolbar-btn" data-tool="size" title="Brush Size">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" opacity="0.3"/>
+      </svg>
+    </button>
+
+    <div class="toolbar-sep"></div>
+
+    <!-- Clear -->
+    <button class="toolbar-btn" data-tool="clear" title="Clear Canvas">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- ═══════════ COLOR PANEL ═══════════ -->
+  <div class="color-panel">
+    <div class="color-presets"></div>
+    <input type="color" id="customColorPicker" class="color-custom" value="#ffffff" title="Custom color" />
+  </div>
+
+  <!-- ═══════════ SIZE PANEL ═══════════ -->
+  <div class="size-panel">
+    <div class="size-preview">
+      <div class="size-dot" style="width:3px;height:3px;"></div>
+    </div>
+    <input type="range" id="sizeSlider" class="size-slider" min="1" max="50" value="3" />
+    <div class="size-label">3px</div>
+  </div>
+
+  <!-- ═══════════ USERS PANEL ═══════════ -->
+  <div class="users-panel">
+    <div class="users-panel-title">Participants</div>
+    <div class="users-list"></div>
+  </div>
+
+  <!-- ═══════════ ZOOM CONTROLS ═══════════ -->
+  <div class="zoom-controls">
+    <button class="zoom-btn" id="zoomOutBtn" title="Zoom Out">−</button>
+    <span class="zoom-level" title="Click to reset">100%</span>
+    <button class="zoom-btn" id="zoomInBtn" title="Zoom In">+</button>
+  </div>
+
+  <!-- ═══════════ TOASTS ═══════════ -->
+  <div class="toast-container"></div>
+
+  <!-- ═══════════ SCRIPTS ═══════════ -->
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/network.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
