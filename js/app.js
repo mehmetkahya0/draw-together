@@ -42,67 +42,33 @@
   // ── Lobby ──
 
   function setupLobby() {
-    const createBtn = $('#createRoomBtn');
-    const joinBtn = $('#joinRoomBtn');
+    const enterBtn = $('#enterCanvasBtn');
     const usernameInput = $('#lobbyUsername');
-    const roomIdInput = $('#lobbyRoomId');
 
-    createBtn.addEventListener('click', async () => {
+    enterBtn.addEventListener('click', async () => {
       const name = usernameInput.value.trim();
       if (!name) {
         usernameInput.focus();
         shakeElement(usernameInput);
         return;
       }
-      createBtn.disabled = true;
-      joinBtn.disabled = true;
-      createBtn.textContent = 'Creating...';
+      enterBtn.disabled = true;
+      enterBtn.textContent = 'Connecting...';
       try {
-        await startSession(name, null);
+        await startSession(name);
       } catch (e) {
-        createBtn.disabled = false;
-        joinBtn.disabled = false;
-        createBtn.textContent = '✦ Create Room';
-        showToast('Failed to create room: ' + (e.message || e));
+        enterBtn.disabled = false;
+        enterBtn.textContent = '→ Enter Canvas';
+        showToast('Connection failed: ' + (e.message || e));
       }
     });
 
-    joinBtn.addEventListener('click', async () => {
-      const name = usernameInput.value.trim();
-      const roomId = roomIdInput.value.trim();
-      if (!name) {
-        usernameInput.focus();
-        shakeElement(usernameInput);
-        return;
-      }
-      if (!roomId) {
-        roomIdInput.focus();
-        shakeElement(roomIdInput);
-        return;
-      }
-      createBtn.disabled = true;
-      joinBtn.disabled = true;
-      joinBtn.textContent = 'Joining...';
-      try {
-        await startSession(name, roomId);
-      } catch (e) {
-        createBtn.disabled = false;
-        joinBtn.disabled = false;
-        joinBtn.textContent = '→ Join Room';
-        showToast('Failed to join: ' + (e.message || e));
-      }
-    });
-
-    // Enter key support
     usernameInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') createBtn.click();
-    });
-    roomIdInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') joinBtn.click();
+      if (e.key === 'Enter') enterBtn.click();
     });
   }
 
-  async function startSession(username, roomId) {
+  async function startSession(username) {
     network = new NetworkManager();
 
     // Setup network callbacks
@@ -149,19 +115,13 @@
       showToast('Error: ' + msg);
     };
 
-    // Connect
-    let resultRoomId;
-    if (!roomId) {
-      resultRoomId = await network.createRoom(username);
-    } else {
-      resultRoomId = await network.joinRoom(username, roomId);
-    }
+    // Connect to global room
+    await network.connect(username);
 
-    // Transition to canvas
     hideLobby();
     initCanvas();
-    updateRoomIdDisplay(resultRoomId);
     updateUsersPanel();
+    showToast('Connected! ' + (network.isHost ? 'You are the first here.' : 'Syncing canvas...'));
   }
 
   function hideLobby() {

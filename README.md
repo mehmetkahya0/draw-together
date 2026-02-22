@@ -2,6 +2,8 @@
 
 A **real-time collaborative drawing app** with an infinite canvas. Built with pure HTML/CSS/JS and PeerJS (WebRTC). Hosted entirely on **GitHub Pages** — no backend server needed.
 
+Everyone shares the **same canvas** — just enter your name and start drawing!
+
 <p align="center">
   <strong>🔗 <a href="https://mehmetkahya0.github.io/draw-together/">Live Demo</a></strong>
 </p>
@@ -14,19 +16,17 @@ A **real-time collaborative drawing app** with an infinite canvas. Built with pu
 |---|---|
 | **Infinite Canvas** | Pan and zoom with no boundaries |
 | **Real-time P2P** | Drawing syncs directly between browsers via WebRTC |
-| **Room System** | Create a room & share the ID — no accounts needed |
+| **Single Global Room** | Everyone draws on the same canvas — no room codes needed |
 | **Drawing Tools** | Pen, eraser, 20 color presets + custom picker, adjustable brush size |
-| **Cursor Sharing** | See collaborators' cursors with names |
+| **Cursor Sharing** | See collaborators' cursors with names in real-time |
 | **Zero Cost** | Runs on GitHub Pages, free forever |
 | **Mobile Friendly** | Touch drawing and pinch-to-zoom support |
 
 ## 🚀 How to Use
 
 1. **Open the app** → [Live Demo](https://mehmetkahya0.github.io/draw-together/)
-2. **Enter your name** and click **Create Room**
-3. **Share the Room ID** with friends
-4. They enter the Room ID and click **Join Room**
-5. **Draw together** on the infinite canvas! 🎉
+2. **Enter your name** and click **Enter Canvas**
+3. **Start drawing!** Anyone else on the site will see your strokes in real-time 🎉
 
 ## 🛠️ Controls
 
@@ -46,8 +46,8 @@ A **real-time collaborative drawing app** with an infinite canvas. Built with pu
 
 - Drawings are **not persisted** — lost when all users disconnect
 - PeerJS cloud signaling server is used for initial connection brokering
-- Recommended max **~10-15 users** per room
-- Room creator must stay connected (host role)
+- First user becomes the host; if host disconnects, canvas resets for new joiners
+- Recommended max **~10-15 concurrent users**
 
 ## 🏗️ Run Locally
 

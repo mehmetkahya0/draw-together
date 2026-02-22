@@ -26,21 +26,10 @@
       </div>
 
       <div class="lobby-actions">
-        <button class="btn btn-primary" id="createRoomBtn">✦ Create Room</button>
+        <button class="btn btn-primary" id="enterCanvasBtn">→ Enter Canvas</button>
       </div>
 
-      <div class="lobby-divider">
-        <span>or join existing</span>
-      </div>
-
-      <div class="lobby-input-group">
-        <label for="lobbyRoomId">Room ID</label>
-        <input type="text" id="lobbyRoomId" class="lobby-input" placeholder="e.g. AB3XY" maxlength="10" autocomplete="off" style="text-transform: uppercase; letter-spacing: 2px; font-family: 'SF Mono', 'Fira Code', monospace;" />
-      </div>
-
-      <div class="lobby-actions">
-        <button class="btn btn-secondary" id="joinRoomBtn">→ Join Room</button>
-      </div>
+      <p style="text-align:center; color: var(--text-muted); font-size: 0.75rem; margin-top: 20px;">Everyone shares the same canvas — just pick a name and start drawing!</p>
     </div>
   </div>
 
@@ -49,11 +38,6 @@
 
   <!-- ═══════════ TOP BAR ═══════════ -->
   <div class="top-bar">
-    <div class="room-id-display" title="Click to copy Room ID">
-      <span>🔗</span>
-      <span>Room:</span>
-      <span class="room-code">—</span>
-    </div>
     <div class="peer-count">
       <div class="peer-dot"></div>
       <span class="peer-count-text">1 online</span>

@@ -1,13 +1,17 @@
 /**
  * Draw Together — P2P Network Manager
- * Handles room creation, peer connections, and data sync via PeerJS
+ * Handles peer connections and data sync via PeerJS
+ * Single global room — everyone shares the same canvas
  */
 
 class NetworkManager {
+  // Fixed room ID — everyone connects to the same room
+  static GLOBAL_ROOM_ID = 'DRAW-TOGETHER-GLOBAL';
+
   constructor() {
     this.peer = null;
     this.connections = new Map(); // peerId -> { conn, username, color }
-    this.roomId = null;
+    this.roomId = NetworkManager.GLOBAL_ROOM_ID;
     this.isHost = false;
     this.username = '';
     this.userColor = this._randomColor();
@@ -26,23 +30,22 @@ class NetworkManager {
   }
 
   /**
-   * Create a new room (become host)
+   * Connect to the global room.
+   * Tries to become host first; if host already exists, joins as peer.
    */
-  async createRoom(username) {
+  async connect(username) {
     this.username = username;
-    this.isHost = true;
 
     return new Promise((resolve, reject) => {
-      // Generate a short room ID
-      this.roomId = this._generateRoomId();
-      const peerId = 'dt-' + this.roomId;
+      // First, try to become host
+      const hostPeerId = 'dt-' + this.roomId;
 
-      this.peer = new Peer(peerId, {
-        debug: 0
-      });
+      this.peer = new Peer(hostPeerId, { debug: 0 });
 
       this.peer.on('open', (id) => {
-        console.log('[Network] Host ready, room:', this.roomId);
+        // We got the host ID — we are the host
+        this.isHost = true;
+        console.log('[Network] Became host of global room');
         if (this.onReady) this.onReady();
         resolve(this.roomId);
       });
@@ -52,13 +55,13 @@ class NetworkManager {
       });
 
       this.peer.on('error', (err) => {
-        console.error('[Network] Error:', err);
         if (err.type === 'unavailable-id') {
-          // Room ID collision, retry
+          // Host already exists — join as peer instead
+          console.log('[Network] Host exists, joining as peer...');
           this.peer.destroy();
-          this.roomId = this._generateRoomId();
-          this.createRoom(username).then(resolve).catch(reject);
+          this._joinAsGuest(username).then(resolve).catch(reject);
         } else {
+          console.error('[Network] Error:', err);
           if (this.onError) this.onError(err.message || err.type);
           reject(err);
         }
@@ -72,22 +75,19 @@ class NetworkManager {
   }
 
   /**
-   * Join an existing room
+   * Join as guest (internal, called when host ID is taken)
    */
-  async joinRoom(username, roomId) {
+  async _joinAsGuest(username) {
     this.username = username;
     this.isHost = false;
-    this.roomId = roomId.toUpperCase().trim();
 
     return new Promise((resolve, reject) => {
       const myId = 'dt-' + this._generateRoomId() + '-' + Date.now().toString(36);
 
-      this.peer = new Peer(myId, {
-        debug: 0
-      });
+      this.peer = new Peer(myId, { debug: 0 });
 
       this.peer.on('open', () => {
-        console.log('[Network] Connecting to room:', this.roomId);
+        console.log('[Network] Connecting to host...');
         const hostPeerId = 'dt-' + this.roomId;
         const conn = this.peer.connect(hostPeerId, {
           reliable: true,
@@ -96,38 +96,31 @@ class NetworkManager {
 
         conn.on('open', () => {
           this._handleConnection(conn);
-          // Request sync from host
           conn.send({ type: 'sync-request', username: this.username, color: this.userColor });
           resolve(this.roomId);
         });
 
         conn.on('error', (err) => {
           console.error('[Network] Connection error:', err);
-          if (this.onError) this.onError('Could not connect to room. Check the Room ID.');
+          if (this.onError) this.onError('Connection failed.');
           reject(err);
         });
 
-        // Timeout
         setTimeout(() => {
           if (!conn.open) {
-            if (this.onError) this.onError('Connection timeout. Room may not exist.');
+            if (this.onError) this.onError('Connection timeout.');
             reject(new Error('Connection timeout'));
           }
         }, 10000);
       });
 
       this.peer.on('connection', (conn) => {
-        // Other peers may connect to us too (mesh)
         this._handleConnection(conn);
       });
 
       this.peer.on('error', (err) => {
         console.error('[Network] Peer error:', err);
-        if (err.type === 'peer-unavailable') {
-          if (this.onError) this.onError('Room not found. Check the Room ID and try again.');
-        } else {
-          if (this.onError) this.onError(err.message || err.type);
-        }
+        if (this.onError) this.onError(err.message || err.type);
         reject(err);
       });
     });
