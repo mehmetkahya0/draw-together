@@ -1,6 +1,6 @@
 /* ========================================
    Draw Together — Infinite Canvas
-   Premium Dark Theme
+   Blue-White Theme with Light/Dark Mode
    ======================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
@@ -24,6 +24,8 @@
   --success: #34d399;
   --danger: #f87171;
   --warning: #fbbf24;
+  --canvas-bg: #060b18;
+  --grid-color: rgba(255, 255, 255, 0.04);
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -35,6 +37,30 @@
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Light Theme ── */
+[data-theme="light"] {
+  --bg-primary: #f0f4f8;
+  --bg-secondary: #e2e8f0;
+  --bg-tertiary: #dce4ee;
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --bg-glass-hover: rgba(240, 244, 248, 0.95);
+  --border-glass: rgba(59, 130, 246, 0.15);
+  --border-glass-hover: rgba(59, 130, 246, 0.25);
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --accent-primary: #2563eb;
+  --accent-secondary: #3b82f6;
+  --accent-glow: rgba(37, 99, 235, 0.2);
+  --accent-gradient: linear-gradient(135deg, #2563eb, #3b82f6);
+  --canvas-bg: #ffffff;
+  --grid-color: rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  --shadow-glow: 0 0 20px var(--accent-glow);
 }
 
 /* ── Reset ── */
@@ -891,5 +917,138 @@ html, body {
 
   .users-panel {
     display: none;
+  }
+}
+
+/* ── Light Theme Overrides ── */
+[data-theme="light"] .lobby-bg::before {
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.1), transparent 70%);
+}
+
+[data-theme="light"] .lobby-bg::after {
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.08), transparent 70%);
+}
+
+[data-theme="light"] .color-preset.active {
+  border-color: #1e293b;
+  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+}
+
+[data-theme="light"] .toolbar-btn.active {
+  color: white;
+}
+
+/* ── Theme Toggle ── */
+.theme-toggle {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  box-shadow: var(--shadow-md);
+  z-index: 200;
+}
+
+.theme-toggle-btn,
+.github-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.theme-toggle-btn:hover,
+.github-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.bottom-sep {
+  width: 1px;
+  height: 24px;
+  background: var(--border-glass);
+}
+
+/* ── Footer Credit ── */
+.footer-credit {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+.footer-credit a {
+  color: var(--accent-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.footer-credit a:hover {
+  color: var(--accent-primary);
+}
+
+/* ── Lobby Footer ── */
+.lobby-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-glass);
+}
+
+.lobby-footer-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color var(--transition-fast);
+}
+
+.lobby-footer-link:hover {
+  color: var(--text-primary);
+}
+
+.lobby-footer-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 768px) {
+  .footer-credit {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .theme-toggle {
+    bottom: 68px;
   }
 }

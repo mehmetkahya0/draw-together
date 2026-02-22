@@ -32,6 +32,7 @@
   document.addEventListener('DOMContentLoaded', init);
 
   function init() {
+    setupThemeToggle();
     setupLobby();
     buildColorPresets();
     setupToolbar();
@@ -306,22 +307,36 @@
     }
   }
 
-  // ── Room ID Display ──
+  // ── Theme Toggle ──
 
-  function updateRoomIdDisplay(roomId) {
-    const el = $('.room-code');
-    if (el) el.textContent = roomId;
+  function setupThemeToggle() {
+    const btn = $('#themeToggleBtn');
+    const sunIcon = $('#themeIconSun');
+    const moonIcon = $('#themeIconMoon');
+    if (!btn) return;
 
-    const container = $('.room-id-display');
-    if (container) {
-      container.addEventListener('click', () => {
-        navigator.clipboard.writeText(roomId).then(() => {
-          showToast('Room ID copied!');
-        }).catch(() => {
-          // Fallback
-          showToast('Room ID: ' + roomId);
-        });
-      });
+    // Load saved theme
+    const saved = localStorage.getItem('draw-together-theme') || 'dark';
+    applyTheme(saved);
+
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+      localStorage.setItem('draw-together-theme', next);
+      if (canvas) canvas._render();
+    });
+
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        if (sunIcon) sunIcon.style.display = 'block';
+        if (moonIcon) moonIcon.style.display = 'none';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        if (sunIcon) sunIcon.style.display = 'none';
+        if (moonIcon) moonIcon.style.display = 'block';
+      }
     }
   }
 

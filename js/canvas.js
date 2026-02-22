@@ -381,6 +381,12 @@ class InfiniteCanvas {
 
     ctx.clearRect(0, 0, w, h);
 
+    // Fill canvas background from CSS variable
+    const styles = getComputedStyle(document.documentElement);
+    const bgColor = styles.getPropertyValue('--canvas-bg').trim() || '#060b18';
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, w, h);
+
     // Draw grid
     if (this.showGrid) {
       this._drawGrid(ctx, w, h);
@@ -429,7 +435,8 @@ class InfiniteCanvas {
     const startY = this.offsetY % scaledGrid;
 
     ctx.save();
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+    const styles = getComputedStyle(document.documentElement);
+    ctx.strokeStyle = styles.getPropertyValue('--grid-color').trim() || 'rgba(255, 255, 255, 0.04)';
     ctx.lineWidth = 1;
 
     ctx.beginPath();
