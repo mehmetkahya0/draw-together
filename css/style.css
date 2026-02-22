@@ -7,23 +7,23 @@
 
 /* ── CSS Variables ── */
 :root {
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #12121a;
-  --bg-tertiary: #1a1a2e;
-  --bg-glass: rgba(18, 18, 26, 0.85);
-  --bg-glass-hover: rgba(26, 26, 46, 0.95);
-  --border-glass: rgba(255, 255, 255, 0.08);
-  --border-glass-hover: rgba(255, 255, 255, 0.15);
-  --text-primary: #f0f0f5;
-  --text-secondary: #8888a0;
-  --text-muted: #55556a;
-  --accent-primary: #6c5ce7;
-  --accent-secondary: #a29bfe;
-  --accent-glow: rgba(108, 92, 231, 0.4);
-  --accent-gradient: linear-gradient(135deg, #6c5ce7, #a29bfe);
-  --success: #00b894;
-  --danger: #ff6b6b;
-  --warning: #feca57;
+  --bg-primary: #060b18;
+  --bg-secondary: #0c1425;
+  --bg-tertiary: #131e35;
+  --bg-glass: rgba(12, 20, 37, 0.88);
+  --bg-glass-hover: rgba(19, 30, 53, 0.95);
+  --border-glass: rgba(147, 197, 253, 0.1);
+  --border-glass-hover: rgba(147, 197, 253, 0.2);
+  --text-primary: #f0f4ff;
+  --text-secondary: #94a8c8;
+  --text-muted: #4b6080;
+  --accent-primary: #3b82f6;
+  --accent-secondary: #93c5fd;
+  --accent-glow: rgba(59, 130, 246, 0.35);
+  --accent-gradient: linear-gradient(135deg, #2563eb, #60a5fa);
+  --success: #34d399;
+  --danger: #f87171;
+  --warning: #fbbf24;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -113,7 +113,7 @@ html, body {
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(162, 155, 254, 0.15), transparent 70%);
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.12), transparent 70%);
   bottom: 10%;
   right: 20%;
   animation: floatBlob 15s ease-in-out infinite reverse;
